@@ -29,7 +29,7 @@ else:
     ENABLED_TOOLS = [tool.strip() for tool in ENABLED_TOOLS_STR.split(",")]
 
 DEFAULT_MODELS = {
-    "generate_image": os.getenv("MODEL_GENERATE_IMAGE", "stability-ai/sdxl"),
+    "generate_image": os.getenv("MODEL_GENERATE_IMAGE", "Bria/Bria-3.2"),
     "text_generation": os.getenv("MODEL_TEXT_GENERATION", "meta-llama/Llama-2-7b-chat-hf"),
     "embeddings": os.getenv("MODEL_EMBEDDINGS", "sentence-transformers/all-MiniLM-L6-v2"),
     "speech_recognition": os.getenv("MODEL_SPEECH_RECOGNITION", "openai/whisper-large-v3"),
