@@ -67,7 +67,7 @@ You can configure which tools are enabled and set default models for each tool u
 
 - `MODEL_FILL_MASK`: Default model for fill mask (default: "microsoft/DialoGPT-medium")
 
-If a model is not specified when calling a tool, the default model will be used. You can still override the model for each tool call.
+The tools always use the models specified via environment variables. Model selection is configured at startup time through the environment variables listed above.
 
 ## Running the Server
 
@@ -104,16 +104,16 @@ For Claude Desktop, add to your `claude_desktop_config.json`:
 
 This server provides the following MCP tools:
 
-- `generate_image`: Generate an image from a text prompt using specified model. Returns the URL of the generated image.
-- `text_generation`: Generate text completion from a prompt using specified model.
-- `embeddings`: Generate embeddings for a list of input texts using specified model.
+- `generate_image`: Generate an image from a text prompt. Returns the URL of the generated image.
+- `text_generation`: Generate text completion from a prompt.
+- `embeddings`: Generate embeddings for a list of input texts.
 - `speech_recognition`: Transcribe audio from a URL to text using Whisper model.
 - `zero_shot_image_classification`: Classify an image into provided candidate labels using vision model.
 - `object_detection`: Detect and describe objects in an image using multimodal model.
 - `image_classification`: Classify and describe contents of an image using multimodal model.
-- `text_classification`: Analyze text for sentiment and category using specified model.
-- `token_classification`: Perform named entity recognition (NER) on text using specified model.
-- `fill_mask`: Fill masked tokens in text with appropriate words using specified model.
+- `text_classification`: Analyze text for sentiment and category.
+- `token_classification`: Perform named entity recognition (NER) on text.
+- `fill_mask`: Fill masked tokens in text with appropriate words.
 
 ## Testing
 

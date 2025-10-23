@@ -45,10 +45,9 @@ DEFAULT_MODELS = {
 
 if "all" in ENABLED_TOOLS or "generate_image" in ENABLED_TOOLS:
     @app.tool()
-    async def generate_image(prompt: str, model: str = None) -> str:
+    async def generate_image(prompt: str) -> str:
         """Generate an image from a text prompt using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["generate_image"]
+        model = DEFAULT_MODELS["generate_image"]
         try:
             response = await client.images.generate(
                 model=model,
@@ -64,10 +63,9 @@ if "all" in ENABLED_TOOLS or "generate_image" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "text_generation" in ENABLED_TOOLS:
     @app.tool()
-    async def text_generation(prompt: str, model: str = None) -> str:
+    async def text_generation(prompt: str) -> str:
         """Generate text completion using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["text_generation"]
+        model = DEFAULT_MODELS["text_generation"]
         try:
             response = await client.completions.create(
                 model=model,
@@ -84,10 +82,9 @@ if "all" in ENABLED_TOOLS or "text_generation" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "embeddings" in ENABLED_TOOLS:
     @app.tool()
-    async def embeddings(inputs: list[str], model: str = None) -> str:
+    async def embeddings(inputs: list[str]) -> str:
         """Generate embeddings for a list of texts using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["embeddings"]
+        model = DEFAULT_MODELS["embeddings"]
         try:
             response = await client.embeddings.create(
                 model=model,
@@ -100,10 +97,9 @@ if "all" in ENABLED_TOOLS or "embeddings" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "speech_recognition" in ENABLED_TOOLS:
     @app.tool()
-    async def speech_recognition(audio_url: str, model: str = None) -> str:
+    async def speech_recognition(audio_url: str) -> str:
         """Transcribe audio to text using DeepInfra OpenAI-compatible API (Whisper)."""
-        if model is None:
-            model = DEFAULT_MODELS["speech_recognition"]
+        model = DEFAULT_MODELS["speech_recognition"]
         try:
             async with httpx.AsyncClient(timeout=120.0) as http_client:
                 # Download the audio file
@@ -122,10 +118,9 @@ if "all" in ENABLED_TOOLS or "speech_recognition" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "zero_shot_image_classification" in ENABLED_TOOLS:
     @app.tool()
-    async def zero_shot_image_classification(image_url: str, candidate_labels: list[str], model: str = None) -> str:
+    async def zero_shot_image_classification(image_url: str, candidate_labels: list[str]) -> str:
         """Classify an image with zero-shot labels using DeepInfra OpenAI-compatible API (CLIP)."""
-        if model is None:
-            model = DEFAULT_MODELS["zero_shot_image_classification"]
+        model = DEFAULT_MODELS["zero_shot_image_classification"]
         try:
             # Use chat/completions with vision capability to get classification
             response = await client.chat.completions.create(
@@ -156,10 +151,9 @@ if "all" in ENABLED_TOOLS or "zero_shot_image_classification" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "object_detection" in ENABLED_TOOLS:
     @app.tool()
-    async def object_detection(image_url: str, model: str = None) -> str:
+    async def object_detection(image_url: str) -> str:
         """Detect objects in an image using DeepInfra OpenAI-compatible API with multimodal model."""
-        if model is None:
-            model = DEFAULT_MODELS["object_detection"]
+        model = DEFAULT_MODELS["object_detection"]
         try:
             response = await client.chat.completions.create(
                 model=model,
@@ -189,10 +183,9 @@ if "all" in ENABLED_TOOLS or "object_detection" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "image_classification" in ENABLED_TOOLS:
     @app.tool()
-    async def image_classification(image_url: str, model: str = None) -> str:
+    async def image_classification(image_url: str) -> str:
         """Classify an image using DeepInfra OpenAI-compatible API with multimodal model."""
-        if model is None:
-            model = DEFAULT_MODELS["image_classification"]
+        model = DEFAULT_MODELS["image_classification"]
         try:
             response = await client.chat.completions.create(
                 model=model,
@@ -222,10 +215,9 @@ if "all" in ENABLED_TOOLS or "image_classification" in ENABLED_TOOLS:
 
 if "all" in ENABLED_TOOLS or "text_classification" in ENABLED_TOOLS:
     @app.tool()
-    async def text_classification(text: str, model: str = None) -> str:
-        """Classify text sentiment/category using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["text_classification"]
+    async def text_classification(text: str) -> str:
+        """Classify text using DeepInfra OpenAI-compatible API."""
+        model = DEFAULT_MODELS["text_classification"]
         prompt = f"""Analyze the following text and classify it. Determine the sentiment (positive, negative, neutral) and main category/topic. Provide your analysis in JSON format with 'sentiment' and 'category' fields.
 
 Text: {text}
@@ -247,10 +239,9 @@ Response format: {{"sentiment": "positive/negative/neutral", "category": "topic"
 
 if "all" in ENABLED_TOOLS or "token_classification" in ENABLED_TOOLS:
     @app.tool()
-    async def token_classification(text: str, model: str = None) -> str:
-        """Perform named entity recognition (NER) on text using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["token_classification"]
+    async def token_classification(text: str) -> str:
+        """Perform token classification (NER) using DeepInfra OpenAI-compatible API."""
+        model = DEFAULT_MODELS["token_classification"]
         prompt = f"""Perform named entity recognition on the following text. Identify all named entities (persons, organizations, locations, dates, etc.) and classify them. Provide your analysis in JSON format with an array of entities, each having 'entity', 'type', and 'position' fields.
 
 Text: {text}
@@ -272,10 +263,9 @@ Response format: {{"entities": [{{"entity": "entity_name", "type": "PERSON/ORG/L
 
 if "all" in ENABLED_TOOLS or "fill_mask" in ENABLED_TOOLS:
     @app.tool()
-    async def fill_mask(text: str, model: str = None) -> str:
+    async def fill_mask(text: str) -> str:
         """Fill masked tokens in text using DeepInfra OpenAI-compatible API."""
-        if model is None:
-            model = DEFAULT_MODELS["fill_mask"]
+        model = DEFAULT_MODELS["fill_mask"]
         prompt = f"""Fill in the [MASK] token in the following text with the most appropriate word. Provide the completed sentence and explain your choice.
 
 Text: {text}
