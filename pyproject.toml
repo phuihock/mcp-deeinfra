@@ -1,0 +1,34 @@
+[project]
+name = "mcp-deepinfra"
+version = "0.1.0"
+description = "MCP server for AI tools using DeepInfra API"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "httpx",
+    "python-dotenv",
+    "openai>=1.0.0",
+]
+
+[project.scripts]
+mcp-deepinfra = "mcp_deepinfra:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_deepinfra"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
